@@ -21,6 +21,7 @@ window.addEventListener("load", () => {
      const select = qs("select")
      const awards = qs("#awards")
      const smallAw = qs(".awards")
+     const smallRating = qs("small.rating")
      const inputs = document.querySelectorAll("input")
      const small = document.querySelectorAll("small")
      const smallTitle = qs("small.title")
@@ -40,6 +41,7 @@ window.addEventListener("load", () => {
 
      const validate = {
        title: false,
+       rating: false,
        awards: false,
        len: false,
        date: false
@@ -70,6 +72,25 @@ window.addEventListener("load", () => {
 
      })
 
+     rating.addEventListener("input", (e) => {
+
+      if (e.target.value < 0 || e.target.value > 10) {
+        rating.classList.add("is-invalid")
+        rating.classList.remove("is-valid")
+        smallRating.innerHTML = "El numero de calificacion tiene que estar entre 0 y 10"
+        validate.rating = false
+
+      } else {
+       rating.classList.remove("is-invalid")
+       rating.classList.add("is-valid")
+       smallRating.innerHTML = ""
+       validate.rating = true
+      }
+
+      funcValidate(validate)
+
+    })
+
      awards.addEventListener("input", (e) => {
 
        if (e.target.value < 0 || e.target.value > 10) {
@@ -88,6 +109,8 @@ window.addEventListener("load", () => {
        funcValidate(validate)
 
      })
+
+    
 
      len.addEventListener("input", (e) => {
       if (e.target.value < 60 || e.target.value > 360) {
